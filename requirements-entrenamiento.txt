@@ -1,0 +1,6 @@
+Flask>=3.0
+pandas
+numpy
+scikit-learn
+openpyxl
+tensorflow
