@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monitor en vivo · Calidad del aire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/vendor/plotly.min.js"></script>
+  <script src="static/vendor/plotly-locale-es.js"></script>
+</head>
+<body class="pagina-monitor">
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <span class="marca-icono" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#00a651"/><path d="M8 19c3-6 6-6 8 0s5 6 8 0" stroke="#f7f1eb" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#f7f1eb"/><circle cx="21" cy="10" r="1.4" fill="#f7f1eb"/></svg>
+      </span>
+      <span>DECA<b>-AI</b></span>
+    </a>
+    <nav>
+      <a href="index.html" class="">Historia</a>
+      <a href="arboles.html" class="">Problema</a>
+      <a href="datos.html" class="">Datos</a>
+      <a href="modelo.html" class="">Modelo</a>
+      <a href="participa.html" class="">Participa</a>
+      <a href="comunidad.html" class="">Comunidad y ética</a>
+      <a href="monitor.html" class="activo boton-nav">Monitor en vivo</a>
+    </nav>
+  </header>
+
+  <main>
+    
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Simulación en tiempo real</span>
+  <h1>Monitor en vivo</h1>
+  <p class="lead">Reproduce los 18 días de prueba lectura por lectura, como si el sensor estuviera enviando datos cada 5 minutos. Con cada lectura, el autoencoder (Modelo 5) evalúa la última hora y decide si emitir una alerta. El modelo nunca vio estos días durante su entrenamiento.</p>
+</section>
+
+<section class="contenedor" style="padding-bottom: 4rem;">
+  <div class="monitor">
+    <aside class="panel-estado">
+      <div class="reloj" id="reloj">—</div>
+      <div class="medidor" id="medidor">
+        <div class="valor" id="v-co2">—</div>
+        <div class="unidad">ppm de CO₂</div>
+        <div class="estado" id="v-estado">Normal</div>
+      </div>
+      <div class="lecturas">
+        <div class="lectura"><div class="v" id="v-ocup">—</div><div class="n">personas en el aula</div></div>
+        <div class="lectura"><div class="v" id="v-temp">—</div><div class="n">temperatura (°C)</div></div>
+        <div class="lectura"><div class="v" id="v-error">—</div><div class="n">error de reconstrucción</div></div>
+        <div class="lectura"><div class="v" id="v-alertas">0</div><div class="n">alertas emitidas</div></div>
+      </div>
+      <div class="tarjeta" style="padding: 1rem;">
+        <div class="controles">
+          <button class="boton" id="b-play">▶ Reproducir</button>
+          <button class="boton secundario" id="b-evento" title="Saltar al siguiente evento">⏭ Siguiente alerta</button>
+        </div>
+        <div class="controles" style="margin-top: .7rem;">
+          <span class="nota"><b>Velocidad</b></span>
+          <div class="velocidades" id="velocidades">
+            <button data-v="2" class="activo">1×</button>
+            <button data-v="12">6×</button>
+            <button data-v="60">30×</button>
+          </div>
+        </div>
+        <input type="range" class="linea-tiempo" id="linea" min="0" value="0" style="margin-top: .9rem;" aria-label="Línea de tiempo">
+        <div class="nota" id="progreso"></div>
+      </div>
+    </aside>
+
+    <div style="display: grid; gap: 1.5rem;">
+      <div class="tarjeta">
+        <div class="leyenda-niveles" style="margin-bottom: .5rem;">
+          <span><i style="background: var(--ok)"></i>Normal</span>
+          <span><i style="background: var(--adv)"></i>Advertencia (≥ 1.000 ppm)</span>
+          <span><i style="background: var(--crit)"></i>Crítica (≥ 1.500 ppm)</span>
+          <span><i style="background: var(--sensor)"></i>Revisar sensor</span>
+        </div>
+        <div id="g-vivo" class="grafica" style="min-height: 520px;"></div>
+        <p class="nota">Arriba: CO₂ de las últimas 24 horas (los puntos naranjas son anomalías reales, que el sistema no conoce). Abajo: error de reconstrucción frente al umbral. La alerta se emite cuando el error supera el umbral durante 15 minutos seguidos, o cuando el sensor deja de variar.</p>
+      </div>
+      <div class="rejilla-2" style="align-items: start;">
+        <div class="tarjeta">
+          <h3>Bitácora de alertas</h3>
+          <div class="bitacora" id="bitacora"><div class="vacio">Aún no hay alertas. Pulsa «Reproducir» o «Siguiente alerta».</div></div>
+        </div>
+        <div class="tarjeta">
+          <h3>Desempeño del sistema de alertas</h3>
+          <p class="nota">Medido sobre los 18 días de prueba, comparando cada alerta con las anomalías que se inyectaron.</p>
+          <div class="rejilla-3" style="gap: .8rem; margin: 1rem 0;">
+            <div class="kpi"><div class="numero" style="font-size: 2.2rem;">95%</div><div class="texto">precision: alertas que eran reales</div></div>
+            <div class="kpi"><div class="numero" style="font-size: 2.2rem;">46%</div><div class="texto">recall: anomalías detectadas</div></div>
+            <div class="kpi"><div class="numero" style="font-size: 2.2rem;">0.62</div><div class="texto">F1</div></div>
+          </div>
+          <p class="nota">El recall total baja porque incluye la deriva lenta del sensor, casi invisible. En fallas de ventilación y sobreocupación, que son las que afectan la salud, la detección supera el 94%.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="pie">
+    <div>
+      <strong>DECA-AI</strong> · Detección de anomalías en calidad del aire mediante IA
+    </div>
+    <div class="pie-autores">
+      Mayra Vanessa Caipe Rojas · Andrés Camilo Galindo Rodríguez<br>
+      Inteligencia Artificial · Docente: Yudy Amparo Narváez Vallejo · Chía, Cundinamarca
+    </div>
+  </footer>
+
+  <script>window.DECA_ESTATICO = true;</script>
+  <script src="static/js/comun.js"></script>
+  
+<script src="static/js/monitor.js"></script>
+
+</body>
+</html>

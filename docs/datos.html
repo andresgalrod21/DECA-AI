@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Los datos · Calidad del aire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/vendor/plotly.min.js"></script>
+  <script src="static/vendor/plotly-locale-es.js"></script>
+</head>
+<body class="pagina-datos">
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <span class="marca-icono" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#00a651"/><path d="M8 19c3-6 6-6 8 0s5 6 8 0" stroke="#f7f1eb" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#f7f1eb"/><circle cx="21" cy="10" r="1.4" fill="#f7f1eb"/></svg>
+      </span>
+      <span>DECA<b>-AI</b></span>
+    </a>
+    <nav>
+      <a href="index.html" class="">Historia</a>
+      <a href="arboles.html" class="">Problema</a>
+      <a href="datos.html" class="activo">Datos</a>
+      <a href="modelo.html" class="">Modelo</a>
+      <a href="participa.html" class="">Participa</a>
+      <a href="comunidad.html" class="">Comunidad y ética</a>
+      <a href="monitor.html" class=" boton-nav">Monitor en vivo</a>
+    </nav>
+  </header>
+
+  <main>
+    
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Dataset sintético</span>
+  <h1>Los datos del aula</h1>
+  <p class="lead">No existe un dataset público de CO₂ interior con lecturas cada pocos minutos. El que se encontró era de aire exterior, con promedios anuales y sin CO₂. Por eso simulamos un sensor dentro de un aula usando el modelo físico de ventilación, e inyectamos anomalías conocidas para poder evaluar el modelo.</p>
+</section>
+
+<section class="contenedor" style="padding-bottom: 2rem;">
+  <div class="parametros revelar">
+    <div class="parametro"><div class="valor">60 días</div><div class="nombre">del 3 de agosto al 1 de octubre</div></div>
+    <div class="parametro"><div class="valor">5 min</div><div class="nombre">entre lecturas</div></div>
+    <div class="parametro"><div class="valor">17.280</div><div class="nombre">registros</div></div>
+    <div class="parametro"><div class="valor">150 m³</div><div class="nombre">volumen del aula</div></div>
+    <div class="parametro"><div class="valor">35</div><div class="nombre">personas de capacidad</div></div>
+  </div>
+
+  <div class="rejilla-2 revelar" style="margin-top: 1.5rem;">
+    <div class="tarjeta">
+      <h3>¿Cómo se genera el CO₂?</h3>
+      <div class="formula">dC/dt = N·G / V + (Q / V)·(C<sub>ext</sub> − C)</div>
+      <p class="nota"><b>C</b>: CO₂ interior · <b>N</b>: personas · <b>G</b>: CO₂ exhalado por persona (0,005 L/s) · <b>V</b>: volumen · <b>Q</b>: caudal de ventilación · <b>C<sub>ext</sub></b>: CO₂ exterior (420 ppm).</p>
+      <p>Las personas suben el CO₂ y la ventilación lo diluye hacia el nivel de afuera. La ecuación se resuelve minuto a minuto con un horario de clases real, y a cada lectura se le suma el ruido de un sensor (±12 ppm).</p>
+    </div>
+    <div class="tarjeta">
+      <h3>Anomalías inyectadas</h3>
+      <p class="nota">Se marcan con una etiqueta que <b>el modelo nunca ve al entrenar</b>; solo sirve para calificarlo al final.</p>
+      <div id="g-tipos" class="grafica" style="min-height: 280px;"></div>
+    </div>
+  </div>
+</section>
+
+<section class="contenedor revelar" style="padding: 1rem 0 2rem;">
+  <div class="tarjeta">
+    <h3>Los 60 días completos</h3>
+    <div class="dia-control">
+      <label for="sel-var"><b>Variable:</b></label>
+      <select id="sel-var">
+        <option value="co2">CO₂ (ppm)</option>
+        <option value="temperatura">Temperatura (°C)</option>
+        <option value="humedad">Humedad relativa (%)</option>
+        <option value="ocupacion">Ocupación (personas)</option>
+      </select>
+    </div>
+    <div class="filtros" id="filtros"></div>
+    <div id="g-serie" class="grafica alta"></div>
+    <p class="nota">Arrastra sobre la gráfica para hacer zoom o usa la barra inferior para moverte entre días. Doble clic para volver a la vista completa.</p>
+  </div>
+</section>
+
+<section class="contenedor" style="padding-bottom: 4rem;">
+  <div class="rejilla-2 revelar">
+    <div class="tarjeta">
+      <h3>El ciclo de un día normal</h3>
+      <div id="g-perfil" class="grafica"></div>
+      <p class="nota">Promedio de CO₂ por hora en registros normales. Sube con las clases, baja al almuerzo y vuelve a 420 ppm en la noche.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>Calidad del aire en el periodo</h3>
+      <div id="g-rangos" class="grafica"></div>
+    </div>
+  </div>
+  <div class="rejilla-2 revelar" style="margin-top: 1.5rem;">
+    <div class="tarjeta">
+      <h3>CO₂ según el tipo de registro</h3>
+      <div id="g-caja" class="grafica"></div>
+      <p class="nota">El sensor congelado tiene niveles normales: solo se nota por su forma en el tiempo.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>¿Qué variables se mueven juntas?</h3>
+      <div id="g-corr" class="grafica"></div>
+      <p class="nota">La humedad casi no se relaciona con el CO₂, por eso el modelo usa CO₂, ocupación y temperatura.</p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="pie">
+    <div>
+      <strong>DECA-AI</strong> · Detección de anomalías en calidad del aire mediante IA
+    </div>
+    <div class="pie-autores">
+      Mayra Vanessa Caipe Rojas · Andrés Camilo Galindo Rodríguez<br>
+      Inteligencia Artificial · Docente: Yudy Amparo Narváez Vallejo · Chía, Cundinamarca
+    </div>
+  </footer>
+
+  <script>window.DECA_ESTATICO = true;</script>
+  <script src="static/js/comun.js"></script>
+  
+<script src="static/js/datos.js"></script>
+
+</body>
+</html>

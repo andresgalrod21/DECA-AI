@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Participa · Calidad del aire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/vendor/plotly.min.js"></script>
+  <script src="static/vendor/plotly-locale-es.js"></script>
+</head>
+<body class="pagina-participa">
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <span class="marca-icono" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#00a651"/><path d="M8 19c3-6 6-6 8 0s5 6 8 0" stroke="#f7f1eb" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#f7f1eb"/><circle cx="21" cy="10" r="1.4" fill="#f7f1eb"/></svg>
+      </span>
+      <span>DECA<b>-AI</b></span>
+    </a>
+    <nav>
+      <a href="index.html" class="">Historia</a>
+      <a href="arboles.html" class="">Problema</a>
+      <a href="datos.html" class="">Datos</a>
+      <a href="modelo.html" class="">Modelo</a>
+      <a href="participa.html" class="activo">Participa</a>
+      <a href="comunidad.html" class="">Comunidad y ética</a>
+      <a href="monitor.html" class=" boton-nav">Monitor en vivo</a>
+    </nav>
+  </header>
+
+  <main>
+    
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Integración ciudadana</span>
+  <h1>El aire es de todos</h1>
+  <p class="lead">La inteligencia artificial puede avisar, pero es la comunidad la que decide abrir una ventana, pedir ventilación o cambiar de espacio. Aquí cualquier persona puede reportar, de forma anónima, cómo se siente el aire donde está. Cada reporte se suma a la voz de la comunidad.</p>
+</section>
+
+<section class="contenedor" style="padding-bottom: 3rem;">
+  <div class="rejilla-2" style="align-items: start;">
+    <form class="tarjeta formulario" id="form-reporte" novalidate>
+      <h3>Reporta cómo está el aire</h3>
+      <p class="nota">No pedimos nombre, correo ni ubicación exacta. Solo el tipo de lugar y cómo te sientes.</p>
+      <p class="nota solo-estatico aviso-estado" hidden style="padding: .7rem .9rem;">Estás en la versión publicada de demostración: tus reportes se guardan solo en este navegador. En la app Flask se guardan en el servidor y los ve toda la comunidad.</p>
+
+      <fieldset>
+        <legend>1. ¿Dónde estás?</legend>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="lugar" value="Aula de clase" required><span>Aula de clase</span></label><label class="opcion"><input type="radio" name="lugar" value="Oficina" required><span>Oficina</span></label><label class="opcion"><input type="radio" name="lugar" value="Transporte público" required><span>Transporte público</span></label><label class="opcion"><input type="radio" name="lugar" value="Sala de espera o consultorio" required><span>Sala de espera o consultorio</span></label><label class="opcion"><input type="radio" name="lugar" value="Gimnasio" required><span>Gimnasio</span></label><label class="opcion"><input type="radio" name="lugar" value="Otro" required><span>Otro</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. ¿Cómo se siente el aire?</legend>
+        <div class="opciones escala">
+          <label class="opcion nivel-1"><input type="radio" name="sensacion" value="Nada asfixiante" required><span>Nada asfixiante</span></label><label class="opcion nivel-2"><input type="radio" name="sensacion" value="Un poco asfixiante" required><span>Un poco asfixiante</span></label><label class="opcion nivel-3"><input type="radio" name="sensacion" value="Bastante asfixiante" required><span>Bastante asfixiante</span></label><label class="opcion nivel-4"><input type="radio" name="sensacion" value="Demasiado asfixiante" required><span>Demasiado asfixiante</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. ¿Sientes algo de esto? <span class="nota">(puedes marcar varias)</span></legend>
+        <div class="opciones">
+          <label class="opcion"><input type="checkbox" name="sintomas" value="Fatiga o cansancio"><span>Fatiga o cansancio</span></label><label class="opcion"><input type="checkbox" name="sintomas" value="Sueño o somnolencia"><span>Sueño o somnolencia</span></label><label class="opcion"><input type="checkbox" name="sintomas" value="Dolor de cabeza"><span>Dolor de cabeza</span></label><label class="opcion"><input type="checkbox" name="sintomas" value="Irritación en los ojos o garganta"><span>Irritación en los ojos o garganta</span></label><label class="opcion"><input type="checkbox" name="sintomas" value="Dificultad para concentrarse"><span>Dificultad para concentrarse</span></label><label class="opcion"><input type="checkbox" name="sintomas" value="Ninguna en especial"><span>Ninguna en especial</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. ¿Se pudo ventilar?</legend>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="ventilar" value="Sí, se abrieron ventanas o puertas" required><span>Sí, se abrieron ventanas o puertas</span></label><label class="opcion"><input type="radio" name="ventilar" value="No, nadie lo hizo" required><span>No, nadie lo hizo</span></label><label class="opcion"><input type="radio" name="ventilar" value="No es posible (sin ventanas o prohibido)" required><span>No es posible (sin ventanas o prohibido)</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>5. ¿Algo más que quieras contar? <span class="nota">(opcional)</span></legend>
+        <textarea name="comentario" maxlength="280" rows="3" placeholder="Ej.: en la tarde el salón queda muy cargado y no hay ventanas que abrir."></textarea>
+      </fieldset>
+
+      <p class="error-form" id="error-form" hidden>Responde las preguntas 1, 2 y 4 para enviar tu reporte.</p>
+      <button class="boton" type="submit">Enviar reporte</button>
+    </form>
+
+    <div style="display: grid; gap: 1.2rem;">
+      <div class="tarjeta respuesta" id="respuesta" hidden>
+        <span class="etiqueta">Gracias por participar</span>
+        <h3 id="resp-titulo"></h3>
+        <ul id="resp-pasos"></ul>
+        <button class="boton secundario" id="resp-compartir" type="button">Copiar aviso para el grupo</button>
+        <p class="nota" id="resp-copiado" hidden>Aviso copiado. Pégalo en el chat de tu curso o de tu oficina.</p>
+      </div>
+      <div class="tarjeta">
+        <h3>¿Qué pasa con tu reporte?</h3>
+        <div class="pasos-v">
+          <div><b>Se suma a la comunidad.</b> Aparece en los resultados agregados de esta página, junto con los de la encuesta.</div>
+          <div><b>Se convierte en evidencia.</b> Muchos reportes de un mismo tipo de lugar sirven para pedirle al encargado del espacio que mejore la ventilación.</div>
+          <div><b>Complementa al sensor.</b> El autoencoder mide el CO₂; las personas cuentan cómo se sienten. Juntos dan una imagen más completa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-cielo">
+  <div class="contenedor revelar">
+    <span class="etiqueta">La voz de la comunidad</span>
+    <h2>Lo que reportan las personas</h2>
+    <p class="lead">Comparamos lo que respondieron las 50 personas de la encuesta con los reportes enviados desde esta página. Hasta ahora hay <b id="total-reportes">0</b> reportes en la app.</p>
+    <div class="rejilla-2" style="margin-top: 1.5rem;">
+      <div class="tarjeta"><h3>¿Cómo se siente el aire?</h3><div id="g-sensacion" class="grafica"></div></div>
+      <div class="tarjeta"><h3>Síntomas reportados</h3><div id="g-sintomas-com" class="grafica"></div></div>
+    </div>
+    <div class="rejilla-2" style="margin-top: 1.5rem;">
+      <div class="tarjeta"><h3>¿Desde qué lugares reportan?</h3><div id="g-lugar" class="grafica"></div></div>
+      <div class="tarjeta"><h3>Últimos comentarios</h3><div id="comentarios" class="comentarios"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor revelar">
+    <span class="etiqueta">Guía de acción</span>
+    <h2>Qué hacer cuando suena una alerta</h2>
+    <p class="lead">La IA no decide por nadie: avisa. Esta guía dice qué hacer en cada nivel y a quién involucrar.</p>
+    <div class="rejilla-4" style="margin-top: 1.5rem;">
+      
+      <div class="tarjeta nivel-tarjeta borde-ok">
+        <div class="nivel-cabeza"><i class="punto-ok"></i><h3>Normal</h3></div>
+        <div class="nota">Menos de 1.000 ppm</div>
+        <ul><li>Sigue con tu actividad.</li><li>Si el lugar se llena, abre una ventana preventivamente.</li></ul>
+        
+      </div>
+      
+      <div class="tarjeta nivel-tarjeta borde-adv">
+        <div class="nivel-cabeza"><i class="punto-adv"></i><h3>Advertencia</h3></div>
+        <div class="nota">1.000 a 1.500 ppm</div>
+        <ul><li>Abre ventanas o puertas 5 a 10 minutos.</li><li>Avisa al docente o encargado.</li><li>Si no se puede ventilar, propón una pausa fuera del salón.</li></ul>
+        <button class="boton secundario compartir" type="button" data-aviso="⚠ Alerta DECA-AI: el CO₂ está elevado en este espacio. ¿Abrimos ventanas o puertas unos 5 minutos?">Copiar aviso</button>
+      </div>
+      
+      <div class="tarjeta nivel-tarjeta borde-crit">
+        <div class="nivel-cabeza"><i class="punto-crit"></i><h3>Crítica</h3></div>
+        <div class="nota">Más de 1.500 ppm</div>
+        <ul><li>Ventila de inmediato o sal del lugar por unos minutos.</li><li>Avisa al responsable del espacio.</li><li>Reporta en esta página cómo te sientes.</li></ul>
+        <button class="boton secundario compartir" type="button" data-aviso="🚨 Alerta crítica DECA-AI: el CO₂ está muy alto en este espacio. Salgamos unos minutos o ventilemos ya, y avisemos al encargado.">Copiar aviso</button>
+      </div>
+      
+      <div class="tarjeta nivel-tarjeta borde-sensor">
+        <div class="nivel-cabeza"><i class="punto-sensor"></i><h3>Revisar sensor</h3></div>
+        <div class="nota">Lectura atípica</div>
+        <ul><li>No es un problema del aire: el sensor podría estar fallando.</li><li>Avisa a mantenimiento o soporte técnico.</li><li>Mientras tanto, guíate por cómo te sientes.</li></ul>
+        <button class="boton secundario compartir" type="button" data-aviso="🔧 Aviso DECA-AI: el sensor de CO₂ de este espacio muestra lecturas atípicas. ¿Alguien puede avisar a mantenimiento?">Copiar aviso</button>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-rosa">
+  <div class="contenedor revelar">
+    <span class="etiqueta">Cada quien tiene un papel</span>
+    <h2>Una comunidad que cuida su aire</h2>
+    <div class="rejilla-4" style="margin-top: 1.5rem;">
+      <div class="tarjeta"><div class="rol-icono">🎒</div><h3>Estudiantes y usuarios</h3><p class="nota">Reciben las alertas, ventilan, reportan cómo se sienten y comparten el aviso con su grupo.</p></div>
+      <div class="tarjeta"><div class="rol-icono">👩‍🏫</div><h3>Docentes y encargados</h3><p class="nota">Deciden pausas o cambios de salón cuando la alerta es crítica y llevan los reportes a la administración.</p></div>
+      <div class="tarjeta"><div class="rol-icono">🏛️</div><h3>Administración</h3><p class="nota">Usa los datos agregados para priorizar ventilación, ajustar aforos y programar el mantenimiento de sensores.</p></div>
+      <div class="tarjeta"><div class="rol-icono">🤝</div><h3>Comunidad</h3><p class="nota">Participa en talleres, propone dónde instalar sensores y vigila que los datos se usen solo para cuidar la salud.</p></div>
+    </div>
+    <p style="margin-top: 1.5rem;"><a class="boton" href="comunidad.html">Ver la experiencia formativa y la reflexión ética →</a></p>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="pie">
+    <div>
+      <strong>DECA-AI</strong> · Detección de anomalías en calidad del aire mediante IA
+    </div>
+    <div class="pie-autores">
+      Mayra Vanessa Caipe Rojas · Andrés Camilo Galindo Rodríguez<br>
+      Inteligencia Artificial · Docente: Yudy Amparo Narváez Vallejo · Chía, Cundinamarca
+    </div>
+  </footer>
+
+  <script>window.DECA_ESTATICO = true;</script>
+  <script src="static/js/comun.js"></script>
+  
+<script src="static/js/participa.js"></script>
+
+</body>
+</html>

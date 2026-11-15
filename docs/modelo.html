@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El modelo · Calidad del aire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/vendor/plotly.min.js"></script>
+  <script src="static/vendor/plotly-locale-es.js"></script>
+</head>
+<body class="pagina-modelo">
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <span class="marca-icono" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#00a651"/><path d="M8 19c3-6 6-6 8 0s5 6 8 0" stroke="#f7f1eb" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#f7f1eb"/><circle cx="21" cy="10" r="1.4" fill="#f7f1eb"/></svg>
+      </span>
+      <span>DECA<b>-AI</b></span>
+    </a>
+    <nav>
+      <a href="index.html" class="">Historia</a>
+      <a href="arboles.html" class="">Problema</a>
+      <a href="datos.html" class="">Datos</a>
+      <a href="modelo.html" class="activo">Modelo</a>
+      <a href="participa.html" class="">Participa</a>
+      <a href="comunidad.html" class="">Comunidad y ética</a>
+      <a href="monitor.html" class=" boton-nav">Monitor en vivo</a>
+    </nav>
+  </header>
+
+  <main>
+    
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Red neuronal autoencoder</span>
+  <h1>Una red que aprende lo normal</h1>
+  <p class="lead">El autoencoder comprime una hora de lecturas en un resumen de pocos números y luego intenta reconstruirla. Como solo aprendió con datos normales, cuando aparece algo raro no logra copiarlo bien: ese error de reconstrucción es la alarma.</p>
+</section>
+
+<section class="contenedor revelar" style="padding-bottom: 2rem;">
+  <div class="tarjeta">
+    <svg class="diagrama" viewBox="0 0 1000 300" role="img" aria-label="Arquitectura del autoencoder">
+      <defs>
+        <marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2a2e"/></marker>
+      </defs>
+      <g font-family="Nunito, sans-serif" font-size="13" fill="#1f2a2e" text-anchor="middle">
+        <!-- Entrada -->
+        <g>
+          
+          <rect x="30" y="52" width="19" height="12" rx="2" fill="#00a651" opacity="0.45"/>
+          
+          <rect x="52" y="52" width="19" height="12" rx="2" fill="#c99571" opacity="0.45"/>
+          
+          <rect x="74" y="52" width="19" height="12" rx="2" fill="#92dbec" opacity="0.45"/>
+          
+          <rect x="30" y="67" width="19" height="12" rx="2" fill="#00a651" opacity="0.6"/>
+          
+          <rect x="52" y="67" width="19" height="12" rx="2" fill="#c99571" opacity="0.6"/>
+          
+          <rect x="74" y="67" width="19" height="12" rx="2" fill="#92dbec" opacity="0.6"/>
+          
+          <rect x="30" y="82" width="19" height="12" rx="2" fill="#00a651" opacity="0.75"/>
+          
+          <rect x="52" y="82" width="19" height="12" rx="2" fill="#c99571" opacity="0.75"/>
+          
+          <rect x="74" y="82" width="19" height="12" rx="2" fill="#92dbec" opacity="0.75"/>
+          
+          <rect x="30" y="97" width="19" height="12" rx="2" fill="#00a651" opacity="0.8999999999999999"/>
+          
+          <rect x="52" y="97" width="19" height="12" rx="2" fill="#c99571" opacity="0.8999999999999999"/>
+          
+          <rect x="74" y="97" width="19" height="12" rx="2" fill="#92dbec" opacity="0.8999999999999999"/>
+          
+          <rect x="30" y="112" width="19" height="12" rx="2" fill="#00a651" opacity="0.45"/>
+          
+          <rect x="52" y="112" width="19" height="12" rx="2" fill="#c99571" opacity="0.45"/>
+          
+          <rect x="74" y="112" width="19" height="12" rx="2" fill="#92dbec" opacity="0.45"/>
+          
+          <rect x="30" y="127" width="19" height="12" rx="2" fill="#00a651" opacity="0.6"/>
+          
+          <rect x="52" y="127" width="19" height="12" rx="2" fill="#c99571" opacity="0.6"/>
+          
+          <rect x="74" y="127" width="19" height="12" rx="2" fill="#92dbec" opacity="0.6"/>
+          
+          <rect x="30" y="142" width="19" height="12" rx="2" fill="#00a651" opacity="0.75"/>
+          
+          <rect x="52" y="142" width="19" height="12" rx="2" fill="#c99571" opacity="0.75"/>
+          
+          <rect x="74" y="142" width="19" height="12" rx="2" fill="#92dbec" opacity="0.75"/>
+          
+          <rect x="30" y="157" width="19" height="12" rx="2" fill="#00a651" opacity="0.8999999999999999"/>
+          
+          <rect x="52" y="157" width="19" height="12" rx="2" fill="#c99571" opacity="0.8999999999999999"/>
+          
+          <rect x="74" y="157" width="19" height="12" rx="2" fill="#92dbec" opacity="0.8999999999999999"/>
+          
+          <rect x="30" y="172" width="19" height="12" rx="2" fill="#00a651" opacity="0.45"/>
+          
+          <rect x="52" y="172" width="19" height="12" rx="2" fill="#c99571" opacity="0.45"/>
+          
+          <rect x="74" y="172" width="19" height="12" rx="2" fill="#92dbec" opacity="0.45"/>
+          
+          <rect x="30" y="187" width="19" height="12" rx="2" fill="#00a651" opacity="0.6"/>
+          
+          <rect x="52" y="187" width="19" height="12" rx="2" fill="#c99571" opacity="0.6"/>
+          
+          <rect x="74" y="187" width="19" height="12" rx="2" fill="#92dbec" opacity="0.6"/>
+          
+          <rect x="30" y="202" width="19" height="12" rx="2" fill="#00a651" opacity="0.75"/>
+          
+          <rect x="52" y="202" width="19" height="12" rx="2" fill="#c99571" opacity="0.75"/>
+          
+          <rect x="74" y="202" width="19" height="12" rx="2" fill="#92dbec" opacity="0.75"/>
+          
+          <rect x="30" y="217" width="19" height="12" rx="2" fill="#00a651" opacity="0.8999999999999999"/>
+          
+          <rect x="52" y="217" width="19" height="12" rx="2" fill="#c99571" opacity="0.8999999999999999"/>
+          
+          <rect x="74" y="217" width="19" height="12" rx="2" fill="#92dbec" opacity="0.8999999999999999"/>
+          
+          <text x="62" y="35" font-weight="800">Entrada</text>
+          <text x="62" y="250">1 hora = 12 lecturas</text>
+          <text x="62" y="267">CO₂ · ocupación · temp.</text>
+        </g>
+        <!-- Codificador -->
+        <rect x="160" y="40" width="58" height="200" rx="10" fill="#d9f2e4"/>
+        <rect x="245" y="75" width="48" height="130" rx="10" fill="#bfe8cf"/>
+        <text x="226" y="30" font-weight="800">Codificador</text>
+        <text x="189" y="145">16</text><text x="269" y="145">8</text>
+        <!-- Latente -->
+        <rect x="325" y="110" width="50" height="60" rx="10" fill="#1f2a2e"/>
+        <text x="350" y="145" fill="#f7f1eb" font-weight="800">4</text>
+        <text x="350" y="95" font-weight="800">Cuello de botella</text>
+        <text x="350" y="195">resumen de la hora</text>
+        <!-- Decodificador -->
+        <rect x="407" y="75" width="48" height="130" rx="10" fill="#fbe4de"/>
+        <rect x="482" y="40" width="58" height="200" rx="10" fill="#f6c4b8"/>
+        <text x="474" y="30" font-weight="800">Decodificador</text>
+        <text x="431" y="145">8</text><text x="511" y="145">16</text>
+        <!-- Reconstrucción -->
+        <g>
+          
+          <rect x="580" y="52" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="52" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="52" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="67" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="67" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="67" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="82" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="82" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="82" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="97" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="97" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="97" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="112" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="112" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="112" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="127" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="127" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="127" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="142" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="142" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="142" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="157" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="157" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="157" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="172" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="172" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="172" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="187" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="187" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="187" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="202" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="202" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="202" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <rect x="580" y="217" width="19" height="12" rx="2" fill="none" stroke="#00a651" stroke-width="1.6"/>
+          
+          <rect x="602" y="217" width="19" height="12" rx="2" fill="none" stroke="#c99571" stroke-width="1.6"/>
+          
+          <rect x="624" y="217" width="19" height="12" rx="2" fill="none" stroke="#5fb9cf" stroke-width="1.6"/>
+          
+          <text x="612" y="35" font-weight="800">Reconstrucción</text>
+        </g>
+        <!-- Error y decisión -->
+        <path d="M680 140 H735" stroke="#1f2a2e" stroke-width="2" marker-end="url(#fl)"/>
+        <circle cx="785" cy="140" r="46" fill="#fffdfa" stroke="#1f2a2e" stroke-width="2"/>
+        <text x="785" y="136" font-weight="800">Error</text>
+        <text x="785" y="153">(MSE)</text>
+        <path d="M831 120 L880 80" stroke="#1f2a2e" stroke-width="2" marker-end="url(#fl)"/>
+        <path d="M831 160 L880 200" stroke="#1f2a2e" stroke-width="2" marker-end="url(#fl)"/>
+        <rect x="882" y="55" width="105" height="44" rx="22" fill="#1f9d63"/><text x="934" y="82" fill="#fff" font-weight="800">Normal</text>
+        <rect x="882" y="182" width="105" height="44" rx="22" fill="#d6453d"/><text x="934" y="209" fill="#fff" font-weight="800">¡Alerta!</text>
+        <text x="905" y="125" font-size="12">error ≤ umbral</text>
+        <text x="905" y="165" font-size="12">error &gt; umbral</text>
+        <path d="M100 140 H150" stroke="#1f2a2e" stroke-width="2" marker-end="url(#fl)"/>
+        <path d="M545 140 H572" stroke="#1f2a2e" stroke-width="2" marker-end="url(#fl)"/>
+      </g>
+    </svg>
+    <p class="nota" style="text-align: center;">Arquitectura del Modelo 1 (autoencoder denso). Los demás modelos cambian el tamaño de las capas o usan convoluciones.</p>
+  </div>
+
+  <div class="pasos" style="margin-top: 2rem;">
+    <div class="paso"><h3>Ventanas de 1 hora</h3><p class="nota">La serie se corta en ventanas deslizantes de 12 lecturas × 3 variables, escaladas entre 0 y 1.</p></div>
+    <div class="paso"><h3>Solo datos normales</h3><p class="nota">Se entrena con 7.956 ventanas normales de los primeros 42 días. Sin etiquetas: la entrada es su propia respuesta.</p></div>
+    <div class="paso"><h3>Error de reconstrucción</h3><p class="nota">Para cada ventana se mide qué tan distinta salió la copia (MSE). Lo raro se copia mal.</p></div>
+    <div class="paso"><h3>Umbral</h3><p class="nota">Percentil 99 del error en validación: solo el 1% de lo normal lo supera. Se prueba con los últimos 18 días (5.173 ventanas).</p></div>
+  </div>
+</section>
+
+<section class="seccion franja-cielo">
+  <div class="contenedor revelar">
+    <span class="etiqueta">Experimentos</span>
+    <h2>Cinco modelos, un cambio a la vez</h2>
+    <p class="lead">Como en los laboratorios de la clase, cada modelo cambia una sola cosa respecto al anterior. Haz clic en una fila para ver su entrenamiento y sus aciertos.</p>
+    <div class="rejilla-2" style="align-items: start;">
+      <div class="tarjeta" style="overflow-x: auto;">
+        <table class="tabla" id="tabla-modelos">
+          <thead><tr><th>Modelo</th><th>Cambio</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead>
+          <tbody>
+          
+            <tr data-modelo="0" class="">
+              <td>Modelo 1 </td>
+              <td>Autoencoder denso base con SGD</td>
+              <td>0.80</td>
+              <td>0.34</td>
+              <td>0.48</td>
+            </tr>
+          
+            <tr data-modelo="1" class="">
+              <td>Modelo 2 </td>
+              <td>Mismo modelo, optimizador Adam</td>
+              <td>0.91</td>
+              <td>0.40</td>
+              <td>0.56</td>
+            </tr>
+          
+            <tr data-modelo="2" class="">
+              <td>Modelo 3 </td>
+              <td>Más neuronas por capa</td>
+              <td>0.90</td>
+              <td>0.43</td>
+              <td>0.58</td>
+            </tr>
+          
+            <tr data-modelo="3" class="">
+              <td>Modelo 4 </td>
+              <td>BatchNormalization + Dropout</td>
+              <td>0.92</td>
+              <td>0.42</td>
+              <td>0.58</td>
+            </tr>
+          
+            <tr data-modelo="4" class="mejor">
+              <td>Modelo 5 <span class="chip">mejor</span></td>
+              <td>Autoencoder convolucional (Conv1D)</td>
+              <td>0.85</td>
+              <td>0.47</td>
+              <td>0.61</td>
+            </tr>
+          
+          </tbody>
+        </table>
+      </div>
+      <div class="tarjeta">
+        <h3>Comparación</h3>
+        <div id="g-comparacion" class="grafica"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor revelar">
+    <h2 id="titulo-detalle">Detalle</h2>
+    <p class="nota" id="arq-detalle"></p>
+    <div class="rejilla-3">
+      <div class="tarjeta"><h3>Curva de pérdida</h3><div id="g-perdida" class="grafica"></div></div>
+      <div class="tarjeta"><h3>Matriz de confusión</h3><div id="g-matriz" class="grafica"></div></div>
+      <div class="tarjeta"><h3>Detección por tipo</h3><div id="g-portipo" class="grafica"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-rosa">
+  <div class="contenedor rejilla-2 revelar" style="align-items: center;">
+    <div>
+      <span class="etiqueta">Modelo 5</span>
+      <h2>Lo normal y lo raro se separan</h2>
+      <p class="lead">Distribución del error de reconstrucción en el periodo de prueba. Las ventanas normales se concentran a la izquierda del umbral; las anómalas se van a la derecha.</p>
+      <p>Las anomalías que afectan a las personas se detectan casi siempre: fallas de ventilación (94%) y sobreocupación (97%). Lo que casi no se detecta son las fallas lentas del sensor (la deriva), porque se parecen demasiado a lo normal. Para el sensor congelado, el sistema de alertas agrega una regla que revisa si la señal dejó de variar.</p>
+    </div>
+    <div class="tarjeta"><div id="g-histograma" class="grafica alta"></div></div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="pie">
+    <div>
+      <strong>DECA-AI</strong> · Detección de anomalías en calidad del aire mediante IA
+    </div>
+    <div class="pie-autores">
+      Mayra Vanessa Caipe Rojas · Andrés Camilo Galindo Rodríguez<br>
+      Inteligencia Artificial · Docente: Yudy Amparo Narváez Vallejo · Chía, Cundinamarca
+    </div>
+  </footer>
+
+  <script>window.DECA_ESTATICO = true;</script>
+  <script src="static/js/comun.js"></script>
+  
+<script src="static/js/modelo.js"></script>
+
+</body>
+</html>

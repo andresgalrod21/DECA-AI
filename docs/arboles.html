@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problema y objetivos · Calidad del aire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/vendor/plotly.min.js"></script>
+  <script src="static/vendor/plotly-locale-es.js"></script>
+</head>
+<body class="pagina-arboles">
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <span class="marca-icono" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#00a651"/><path d="M8 19c3-6 6-6 8 0s5 6 8 0" stroke="#f7f1eb" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#f7f1eb"/><circle cx="21" cy="10" r="1.4" fill="#f7f1eb"/></svg>
+      </span>
+      <span>DECA<b>-AI</b></span>
+    </a>
+    <nav>
+      <a href="index.html" class="">Historia</a>
+      <a href="arboles.html" class="activo">Problema</a>
+      <a href="datos.html" class="">Datos</a>
+      <a href="modelo.html" class="">Modelo</a>
+      <a href="participa.html" class="">Participa</a>
+      <a href="comunidad.html" class="">Comunidad y ética</a>
+      <a href="monitor.html" class=" boton-nav">Monitor en vivo</a>
+    </nav>
+  </header>
+
+  <main>
+    
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Árbol de problemas · Árbol de objetivos</span>
+  <h1>Cada problema tiene su objetivo</h1>
+  <p class="lead">El árbol de objetivos es el reflejo del árbol de problemas: cada efecto se convierte en un fin y cada causa en un medio. Haz clic en cualquier caja para ver su pareja y el dato que la respalda.</p>
+</section>
+
+<section class="contenedor" style="padding-bottom: 4rem;">
+  <div class="arbol-tabs" role="tablist">
+    <button class="activo" data-vista="ambos">Ver ambos</button>
+    <button data-vista="solo-problemas">Árbol de problemas</button>
+    <button data-vista="solo-objetivos">Árbol de objetivos</button>
+  </div>
+
+  <div class="arboles" id="arboles">
+    
+    <div class="arbol problemas">
+      <h3>Árbol de problemas</h3>
+      <div class="nivel-titulo">Efectos</div>
+      <div class="fila">
+        
+        <div class="nodo" data-par="e1" tabindex="0">
+          <strong>Disminución de concentración</strong>
+          La concentración del dióxido de carbono dificulta la capacidad de concentración y reduce el rendimiento mental.
+        </div>
+        
+        <div class="nodo" data-par="e2" tabindex="0">
+          <strong>Dolores de cabeza</strong>
+          La acumulación del dióxido de carbono provoca cefaleas frecuentes y molestias de cabeza.
+        </div>
+        
+        <div class="nodo" data-par="e3" tabindex="0">
+          <strong>Fatiga y cansancio</strong>
+          El exceso de dióxido de carbono genera agotamiento, falta de energía y cansancio constante.
+        </div>
+        
+        <div class="nodo" data-par="e4" tabindex="0">
+          <strong>Afectación de la salud y bienestar</strong>
+          La exposición prolongada deteriora el estado general de salud y disminuye la calidad de vida y bienestar.
+        </div>
+        
+      </div>
+      <div class="tronco"></div>
+      <div class="fila">
+        <div class="nodo central" data-par="c0" tabindex="0">
+          <strong>Exceso de dióxido de carbono (CO₂) en espacios cerrados por poca ventilación</strong>
+          Problema central
+        </div>
+      </div>
+      <div class="tronco"></div>
+      <div class="nivel-titulo">Causas</div>
+      <div class="fila">
+        
+        <div class="nodo" data-par="c1" tabindex="0">
+          <strong>Mala ventilación</strong>
+          Mantener los espacios cerrados sin permitir la entrada de aire fresco favorece la acumulación de CO₂.
+        </div>
+        
+        <div class="nodo" data-par="c2" tabindex="0">
+          <strong>Concentración de calor</strong>
+          La falta de aire genera un aumento de la temperatura y también que el dióxido de carbono se concentre en el ambiente.
+        </div>
+        
+        <div class="nodo" data-par="c3" tabindex="0">
+          <strong>Lugar de ubicación</strong>
+          Dependiendo de la localización del lugar, puede limitar las posibilidades de ventilación y afectar la calidad del aire que ingresa.
+        </div>
+        
+        <div class="nodo" data-par="c4" tabindex="0">
+          <strong>Estaciones</strong>
+          En temporadas de frío o lluvia se tiende a mantener las ventanas cerradas, reduciendo la renovación del aire.
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="arbol objetivos">
+      <h3>Árbol de objetivos</h3>
+      <div class="nivel-titulo">Fines</div>
+      <div class="fila">
+        
+        <div class="nodo" data-par="e1" tabindex="0">
+          <strong>Mejorar la concentración y rendimiento</strong>
+          Aumentar la capacidad de atención y el desempeño cognitivo al mantener niveles saludables de aire.
+        </div>
+        
+        <div class="nodo" data-par="e2" tabindex="0">
+          <strong>Disminuir los dolores de cabeza</strong>
+          Reducir las cefaleas y molestias de cabeza causadas por la acumulación de CO₂.
+        </div>
+        
+        <div class="nodo" data-par="e3" tabindex="0">
+          <strong>Reducir la fatiga y el cansancio</strong>
+          Mantener la energía y evitar el agotamiento causado por el aire cargado.
+        </div>
+        
+        <div class="nodo" data-par="e4" tabindex="0">
+          <strong>Proteger la salud y el bienestar</strong>
+          Evitar la exposición prolongada a aire viciado y mejorar la calidad de vida en aulas, oficinas, salas de espera y gimnasios.
+        </div>
+        
+      </div>
+      <div class="tronco"></div>
+      <div class="fila">
+        <div class="nodo central" data-par="c0" tabindex="0">
+          <strong>Reducir el exceso de dióxido de carbono (CO₂) en espacios cerrados</strong>
+          Objetivo central
+        </div>
+      </div>
+      <div class="tronco"></div>
+      <div class="nivel-titulo">Medios</div>
+      <div class="fila">
+        
+        <div class="nodo" data-par="c1" tabindex="0">
+          <strong>Detectar la falta de ventilación</strong>
+          Entrenar una red neuronal Autoencoder que detecte la acumulación de CO₂ mediante el error de reconstrucción.
+        </div>
+        
+        <div class="nodo" data-par="c2" tabindex="0">
+          <strong>Monitorear CO₂ y temperatura</strong>
+          Medir en conjunto el CO₂, la temperatura y la ocupación para identificar cuándo el ambiente se vuelve atípico o peligroso.
+        </div>
+        
+        <div class="nodo" data-par="c3" tabindex="0">
+          <strong>Adaptar el monitoreo a cada espacio</strong>
+          Aprender el comportamiento normal de cada lugar e indicar salir o activar la ventilación mecánica donde no hay ventanas.
+        </div>
+        
+        <div class="nodo" data-par="c4" tabindex="0">
+          <strong>Ventilar en cualquier época del año</strong>
+          Emitir alertas en tiempo real (app o dispositivo) que indiquen cuándo renovar el aire, aunque haga frío o llueva.
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="detalle-par" id="detalle" hidden>
+    <div class="tarjeta" style="border-top: 6px solid var(--crit);">
+      <span class="etiqueta" style="background: var(--rosa-claro); color: var(--crit);" id="d-tipo-p">Problema</span>
+      <h4 id="d-problema"></h4>
+      <p id="d-ptexto" class="nota"></p>
+    </div>
+    <div class="flecha">→</div>
+    <div class="tarjeta" style="border-top: 6px solid var(--verde);">
+      <span class="etiqueta" id="d-tipo-o">Objetivo</span>
+      <h4 id="d-objetivo"></h4>
+      <p id="d-otexto" class="nota"></p>
+    </div>
+  </div>
+  <div class="evidencia" id="d-evidencia" hidden></div>
+</section>
+
+<script id="arbol-datos" type="application/json">{"causas": [{"evidencia": "El autoencoder final (Modelo 5) detecta el \u003cstrong\u003e94%\u003c/strong\u003e de las ventanas con falla de ventilaci\u00f3n en el periodo de prueba.", "id": "c1", "o_texto": "Entrenar una red neuronal Autoencoder que detecte la acumulaci\u00f3n de CO\u2082 mediante el error de reconstrucci\u00f3n.", "objetivo": "Detectar la falta de ventilaci\u00f3n", "p_texto": "Mantener los espacios cerrados sin permitir la entrada de aire fresco favorece la acumulaci\u00f3n de CO\u2082.", "problema": "Mala ventilaci\u00f3n"}, {"evidencia": "En los datos del aula, CO\u2082 y temperatura se mueven juntos (correlaci\u00f3n de \u003cstrong\u003e0,5\u003c/strong\u003e); por eso el modelo recibe ambas variables.", "id": "c2", "o_texto": "Medir en conjunto el CO\u2082, la temperatura y la ocupaci\u00f3n para identificar cu\u00e1ndo el ambiente se vuelve at\u00edpico o peligroso.", "objetivo": "Monitorear CO\u2082 y temperatura", "p_texto": "La falta de aire genera un aumento de la temperatura y tambi\u00e9n que el di\u00f3xido de carbono se concentre en el ambiente.", "problema": "Concentraci\u00f3n de calor"}, {"evidencia": "El \u003cstrong\u003e14%\u003c/strong\u003e no puede abrir ventanas porque no las hay o no est\u00e1 permitido.", "id": "c3", "o_texto": "Aprender el comportamiento normal de cada lugar e indicar salir o activar la ventilaci\u00f3n mec\u00e1nica donde no hay ventanas.", "objetivo": "Adaptar el monitoreo a cada espacio", "p_texto": "Dependiendo de la localizaci\u00f3n del lugar, puede limitar las posibilidades de ventilaci\u00f3n y afectar la calidad del aire que ingresa.", "problema": "Lugar de ubicaci\u00f3n"}, {"evidencia": "\u00abEn mi colegio cerraban todo en \u00e9poca de lluvia y el aire se pon\u00eda tan pesado que era imposible concentrarse.\u00bb \u2014 testimonio de la encuesta.", "id": "c4", "o_texto": "Emitir alertas en tiempo real (app o dispositivo) que indiquen cu\u00e1ndo renovar el aire, aunque haga fr\u00edo o llueva.", "objetivo": "Ventilar en cualquier \u00e9poca del a\u00f1o", "p_texto": "En temporadas de fr\u00edo o lluvia se tiende a mantener las ventanas cerradas, reduciendo la renovaci\u00f3n del aire.", "problema": "Estaciones"}], "central": {"evidencia": "El \u003cstrong\u003e90%\u003c/strong\u003e siente el aire asfixiante en lugares cerrados con poca ventilaci\u00f3n, y el \u003cstrong\u003e92%\u003c/strong\u003e considera \u00fatil un sistema de alertas.", "id": "c0", "objetivo": "Reducir el exceso de di\u00f3xido de carbono (CO\u2082) en espacios cerrados", "problema": "Exceso de di\u00f3xido de carbono (CO\u2082) en espacios cerrados por poca ventilaci\u00f3n"}, "efectos": [{"evidencia": "El \u003cstrong\u003e84%\u003c/strong\u003e de los encuestados nota que en lugares cerrados le cuesta m\u00e1s prestar atenci\u00f3n o se cansa m\u00e1s de lo normal.", "id": "e1", "o_texto": "Aumentar la capacidad de atenci\u00f3n y el desempe\u00f1o cognitivo al mantener niveles saludables de aire.", "objetivo": "Mejorar la concentraci\u00f3n y rendimiento", "p_texto": "La concentraci\u00f3n del di\u00f3xido de carbono dificulta la capacidad de concentraci\u00f3n y reduce el rendimiento mental.", "problema": "Disminuci\u00f3n de concentraci\u00f3n"}, {"evidencia": "El \u003cstrong\u003e46%\u003c/strong\u003e reporta dolor de cabeza cuando el aire se siente pesado.", "id": "e2", "o_texto": "Reducir las cefaleas y molestias de cabeza causadas por la acumulaci\u00f3n de CO\u2082.", "objetivo": "Disminuir los dolores de cabeza", "p_texto": "La acumulaci\u00f3n del di\u00f3xido de carbono provoca cefaleas frecuentes y molestias de cabeza.", "problema": "Dolores de cabeza"}, {"evidencia": "La fatiga es el s\u00edntoma m\u00e1s reportado: \u003cstrong\u003e56%\u003c/strong\u003e, seguida de la somnolencia (48%).", "id": "e3", "o_texto": "Mantener la energ\u00eda y evitar el agotamiento causado por el aire cargado.", "objetivo": "Reducir la fatiga y el cansancio", "p_texto": "El exceso de di\u00f3xido de carbono genera agotamiento, falta de energ\u00eda y cansancio constante.", "problema": "Fatiga y cansancio"}, {"evidencia": "Los encuestados califican con \u003cstrong\u003e8,0/10\u003c/strong\u003e la importancia de controlar el aire donde pasan mucho tiempo.", "id": "e4", "o_texto": "Evitar la exposici\u00f3n prolongada a aire viciado y mejorar la calidad de vida en aulas, oficinas, salas de espera y gimnasios.", "objetivo": "Proteger la salud y el bienestar", "p_texto": "La exposici\u00f3n prolongada deteriora el estado general de salud y disminuye la calidad de vida y bienestar.", "problema": "Afectaci\u00f3n de la salud y bienestar"}]}</script>
+
+  </main>
+
+  <footer class="pie">
+    <div>
+      <strong>DECA-AI</strong> · Detección de anomalías en calidad del aire mediante IA
+    </div>
+    <div class="pie-autores">
+      Mayra Vanessa Caipe Rojas · Andrés Camilo Galindo Rodríguez<br>
+      Inteligencia Artificial · Docente: Yudy Amparo Narváez Vallejo · Chía, Cundinamarca
+    </div>
+  </footer>
+
+  <script>window.DECA_ESTATICO = true;</script>
+  <script src="static/js/comun.js"></script>
+  
+<script>
+(function () {
+  const datos = JSON.parse(document.getElementById("arbol-datos").textContent);
+  const nodos = {};
+  datos.efectos.forEach((n) => nodos[n.id] = Object.assign({ nivel: ["Efecto", "Fin"] }, n));
+  datos.causas.forEach((n) => nodos[n.id] = Object.assign({ nivel: ["Causa", "Medio"] }, n));
+  nodos[datos.central.id] = Object.assign({ nivel: ["Problema central", "Objetivo central"], p_texto: "", o_texto: "" }, datos.central);
+
+  const cont = document.getElementById("arboles");
+  const detalle = document.getElementById("detalle"), evid = document.getElementById("d-evidencia");
+  let activo = null;
+
+  function seleccionar(id) {
+    cont.querySelectorAll(".nodo").forEach((n) => n.classList.toggle("resaltado", n.dataset.par === id));
+    cont.classList.toggle("enfocado", !!id);
+    activo = id;
+    if (!id) { detalle.hidden = true; evid.hidden = true; return; }
+    const n = nodos[id];
+    document.getElementById("d-tipo-p").textContent = n.nivel[0];
+    document.getElementById("d-tipo-o").textContent = n.nivel[1];
+    document.getElementById("d-problema").textContent = n.problema;
+    document.getElementById("d-ptexto").textContent = n.p_texto;
+    document.getElementById("d-objetivo").textContent = n.objetivo;
+    document.getElementById("d-otexto").textContent = n.o_texto;
+    detalle.hidden = false;
+    evid.hidden = !n.evidencia;
+    evid.innerHTML = "<b>Lo que respalda esta pareja:</b> " + n.evidencia;
+  }
+
+  cont.querySelectorAll(".nodo").forEach((n) => {
+    const accion = () => seleccionar(activo === n.dataset.par ? null : n.dataset.par);
+    n.addEventListener("click", accion);
+    n.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); accion(); } });
+    n.addEventListener("mouseenter", () => { if (!activo) cont.querySelectorAll(`[data-par="${n.dataset.par}"]`).forEach((m) => m.classList.add("resaltado")); });
+    n.addEventListener("mouseleave", () => { if (!activo) cont.querySelectorAll(".nodo").forEach((m) => m.classList.remove("resaltado")); });
+  });
+
+  document.querySelectorAll(".arbol-tabs button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".arbol-tabs button").forEach((x) => x.classList.toggle("activo", x === b));
+    cont.classList.remove("solo-problemas", "solo-objetivos");
+    if (b.dataset.vista !== "ambos") cont.classList.add(b.dataset.vista);
+  }));
+
+  seleccionar("c1");
+})();
+</script>
+
+</body>
+</html>

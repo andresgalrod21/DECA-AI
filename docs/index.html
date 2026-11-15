@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La historia · Calidad del aire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/vendor/plotly.min.js"></script>
+  <script src="static/vendor/plotly-locale-es.js"></script>
+</head>
+<body class="pagina-historia">
+  <header class="barra">
+    <a class="marca" href="index.html">
+      <span class="marca-icono" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#00a651"/><path d="M8 19c3-6 6-6 8 0s5 6 8 0" stroke="#f7f1eb" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="11" cy="11" r="2" fill="#f7f1eb"/><circle cx="21" cy="10" r="1.4" fill="#f7f1eb"/></svg>
+      </span>
+      <span>DECA<b>-AI</b></span>
+    </a>
+    <nav>
+      <a href="index.html" class="activo">Historia</a>
+      <a href="arboles.html" class="">Problema</a>
+      <a href="datos.html" class="">Datos</a>
+      <a href="modelo.html" class="">Modelo</a>
+      <a href="participa.html" class="">Participa</a>
+      <a href="comunidad.html" class="">Comunidad y ética</a>
+      <a href="monitor.html" class=" boton-nav">Monitor en vivo</a>
+    </nav>
+  </header>
+
+  <main>
+    
+
+<section class="portada">
+  <div class="burbujas" aria-hidden="true">
+    <span style="left: 0.0%; width: 10px; height: 10px; animation-duration: 9s; animation-delay: -0s;"></span><span style="left: 7.3%; width: 23px; height: 23px; animation-duration: 14s; animation-delay: -3s;"></span><span style="left: 14.6%; width: 36px; height: 36px; animation-duration: 19s; animation-delay: -6s;"></span><span style="left: 21.9%; width: 49px; height: 49px; animation-duration: 12s; animation-delay: -9s;"></span><span style="left: 29.2%; width: 22px; height: 22px; animation-duration: 17s; animation-delay: -1s;"></span><span style="left: 36.5%; width: 35px; height: 35px; animation-duration: 10s; animation-delay: -4s;"></span><span style="left: 43.8%; width: 48px; height: 48px; animation-duration: 15s; animation-delay: -7s;"></span><span style="left: 51.1%; width: 21px; height: 21px; animation-duration: 20s; animation-delay: -10s;"></span><span style="left: 58.4%; width: 34px; height: 34px; animation-duration: 13s; animation-delay: -2s;"></span><span style="left: 65.7%; width: 47px; height: 47px; animation-duration: 18s; animation-delay: -5s;"></span><span style="left: 73.0%; width: 20px; height: 20px; animation-duration: 11s; animation-delay: -8s;"></span><span style="left: 80.3%; width: 33px; height: 33px; animation-duration: 16s; animation-delay: -0s;"></span><span style="left: 87.6%; width: 46px; height: 46px; animation-duration: 9s; animation-delay: -3s;"></span><span style="left: 94.89999999999999%; width: 19px; height: 19px; animation-duration: 14s; animation-delay: -6s;"></span>
+  </div>
+  <div class="contenedor" style="position: relative;">
+    <span class="etiqueta">DECA-AI · Calidad del aire</span>
+    <h1>Respiras el aire que otros ya respiraron.</h1>
+    <p class="lead">En un lugar cerrado el CO₂ se acumula sin olor ni color. No lo vemos, pero lo sentimos: cansancio, sueño, dolor de cabeza. Esta es la historia de 50 personas que nos contaron cómo lo viven y de una inteligencia artificial que aprende a darse cuenta antes que nosotros.</p>
+    <div class="portada-cifra">
+      <div><div class="numero" data-contar="64" data-sufijo="%">0%</div>pasa <b>todos los días</b> en aulas, oficinas, buses o salas de espera</div>
+      <div><div class="numero" data-contar="90" data-sufijo="%">0%</div>siente el aire <b>asfixiante</b> cuando no hay ventilación</div>
+      <div><div class="numero" data-contar="8.0" data-decimales="1" data-sufijo="/10">0</div>de importancia le dan a <b>controlar el aire</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor capitulo revelar">
+    <div class="capitulo-texto">
+      <div class="capitulo-num">Capítulo 1</div>
+      <h2>Vivimos encerrados</h2>
+      <p class="lead">El 64% de los encuestados está todos los días en lugares cerrados y concurridos. La mayoría son estudiantes: pasan horas en aulas donde el aire casi no se renueva.</p>
+      <p class="nota">Encuesta aplicada a 50 personas, octubre de 2026.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>¿Con qué frecuencia estás en lugares cerrados y concurridos?</h3>
+      <div id="g-frecuencia" class="grafica"></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-rosa">
+  <div class="contenedor capitulo invertido revelar">
+    <div class="capitulo-texto">
+      <div class="capitulo-num">Capítulo 2</div>
+      <h2>Y el cuerpo lo nota</h2>
+      <div class="destacado" data-contar="90" data-sufijo="%">0%</div>
+      <p class="lead">siente el aire asfixiante en un lugar cerrado. Y el 84% ha notado que en esos lugares le cuesta más prestar atención o se cansa más de lo normal.</p>
+      <p class="nota">Pasa el cursor por las barras para ver cuántas personas marcaron cada síntoma (podían marcar varios).</p>
+    </div>
+    <div class="tarjeta">
+      <h3>Cuando el aire se siente pesado, ¿qué sientes?</h3>
+      <div id="g-sintomas" class="grafica"></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor revelar">
+    <div class="capitulo-num">Capítulo 3</div>
+    <h2>Pero casi nadie sabe por qué</h2>
+    <p class="lead">Solo el 44% había pensado que su malestar podía deberse al CO₂ acumulado. Y aunque muchos intentan abrir una ventana, el 14% simplemente no puede: no hay ventanas o no está permitido.</p>
+    <div class="rejilla-2" style="margin-top: 1.5rem;">
+      <div class="tarjeta">
+        <h3>¿Has pensado que tu malestar se debe al CO₂?</h3>
+        <div id="g-asocia" class="grafica"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>¿Abres ventanas cuando el ambiente está cargado?</h3>
+        <div id="g-ventilar" class="grafica"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-oscura">
+  <div class="contenedor revelar">
+    <div class="capitulo-num" style="color: var(--rosa);">Capítulo 4</div>
+    <h2>Lo que el aire no dice</h2>
+    <p class="lead">Así se ve un día en un aula de 35 personas. El CO₂ sube con cada clase y baja cuando el aula queda vacía. Cuando la ventilación falla, se dispara muy por encima de lo saludable y nadie se da cuenta hasta que llega el dolor de cabeza.</p>
+    <div class="tarjeta" style="color: var(--tinta);">
+      <div class="dia-control">
+        <label for="sel-dia"><b>Elige un día:</b></label>
+        <select id="sel-dia"></select>
+        <span class="nota" id="nota-dia"></span>
+      </div>
+      <div id="g-dia" class="grafica alta"></div>
+      <p class="nota">Datos simulados con el modelo de balance de masa de ventilación (ver «Los datos»). Las franjas de color marcan la calidad del aire: verde &lt; 800 ppm, amarilla 800–1.000, naranja 1.000–1.500 y roja &gt; 1.500.</p>
+    </div>
+    <div style="margin-top: 3rem;">
+      <h3 style="color: var(--rosa);">Lo que nos contaron</h3>
+      <div class="testimonios" id="testimonios">
+        <div class="testimonio activo">En el gimnasio en horas pico el aire se vuelve denso y húmedo, lo que dificulta mucho respirar entre series.</div><div class="testimonio">En mi colegio cerraban todo en época de lluvia y el aire se ponía tan pesado que era imposible concentrarse.</div><div class="testimonio">Trabajo en un sótano / área de archivo sin ventilación natural y al final del día salgo con dolor de cabeza.</div><div class="testimonio">Haciendo ejercicio en espacios cerrados sin ventiladores me da dolor de cabeza rápido.</div><div class="testimonio">Un profesor no dejaba abrir las ventanas por el ruido de afuera y a la mitad del grupo le dio dolor de cabeza.</div><div class="testimonio">En las filas para trámites en recintos cerrados se siente una acumulación de bochorno y falta de aire.</div><div class="testimonio">Trabajando en cubículos cerrados con muchas personas se siente el aire pesado y me produce fatiga.</div><div class="testimonio">En la sala de espera de la EPS hay muchísima gente concentrada y el ambiente se vuelve sofocante.</div><div class="testimonio">En las reuniones de más de dos horas en salas pequeñas el aire se siente sofocante y da mucho cansancio.</div><div class="testimonio">Entrenando en un recinto sin ventanas el agotamiento se siente el doble de rápido.</div><div class="testimonio">Se concentró tanto el calor y el bochorno en la clase que una compañera casi se desmaya.</div><div class="testimonio">A mitad de tarde en los laboratorios de cómputo el aire se siente enrarecido y causa mucha fatiga.</div><div class="testimonio">No he tenido ninguna experiencia grave.</div><div class="testimonio">En capacitaciones laborales largas sin ventilación adecuada todo el mundo termina pidiendo recesos por el bochorno.</div><div class="testimonio">En el salón de clase cuando cierran la puerta el calor y la falta de aire hacen que dé mucha somnolencia.</div><div class="testimonio">Solo la sensación normal de bochorno cuando hay mucha gente.</div><div class="testimonio">Ninguna en especial.</div><div class="testimonio">En clases de 3 horas continuas en recintos cerrados siento los ojos muy irritados y mucho cansancio.</div><div class="testimonio">En un salón de eventos sin buena extracción de aire el calor y el sudor de la gente sofocan bastante.</div><div class="testimonio">De pequeña me sofoqué en un aula cerrada y me mareé mucho hasta que me sacaron a tomar aire.</div><div class="testimonio">Durante las parciales el salón estaba con la puerta cerrada y 40 personas. Me dio un dolor de cabeza fortísimo.</div><div class="testimonio">En los consultorios médicos la espera de horas en áreas cerradas hace sentir el pecho oprimido.</div><div class="testimonio">Viajando en bus intermunicipal abarrotado me da mareo y náuseas por el aire viciado.</div>
+      </div>
+      <div class="puntos" id="puntos">
+        <button aria-label="Testimonio 1" class="activo"></button><button aria-label="Testimonio 2" class=""></button><button aria-label="Testimonio 3" class=""></button><button aria-label="Testimonio 4" class=""></button><button aria-label="Testimonio 5" class=""></button><button aria-label="Testimonio 6" class=""></button><button aria-label="Testimonio 7" class=""></button><button aria-label="Testimonio 8" class=""></button><button aria-label="Testimonio 9" class=""></button><button aria-label="Testimonio 10" class=""></button><button aria-label="Testimonio 11" class=""></button><button aria-label="Testimonio 12" class=""></button><button aria-label="Testimonio 13" class=""></button><button aria-label="Testimonio 14" class=""></button><button aria-label="Testimonio 15" class=""></button><button aria-label="Testimonio 16" class=""></button><button aria-label="Testimonio 17" class=""></button><button aria-label="Testimonio 18" class=""></button><button aria-label="Testimonio 19" class=""></button><button aria-label="Testimonio 20" class=""></button><button aria-label="Testimonio 21" class=""></button><button aria-label="Testimonio 22" class=""></button><button aria-label="Testimonio 23" class=""></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-cielo">
+  <div class="contenedor revelar">
+    <div class="capitulo-num">Capítulo 5</div>
+    <h2>Lo que la gente pide</h2>
+    <div class="rejilla-4" style="margin: 1.5rem 0;">
+      <div class="tarjeta kpi"><div class="numero" data-contar="92" data-sufijo="%">0%</div><div class="texto">considera <b>útil</b> un sistema que alerte en tiempo real</div></div>
+      <div class="tarjeta kpi"><div class="numero" data-contar="8.0" data-decimales="1">0</div><div class="texto">de 10 es la importancia de <b>controlar</b> el aire interior</div></div>
+      <div class="tarjeta kpi"><div class="numero" data-contar="84" data-sufijo="%">0%</div><div class="texto">pierde <b>concentración</b> en lugares cerrados</div></div>
+      <div class="tarjeta kpi"><div class="numero" data-contar="50">0</div><div class="texto">personas <b>encuestadas</b></div></div>
+    </div>
+    <div class="rejilla-2">
+      <div class="tarjeta">
+        <h3>¿Dónde haría más falta un sistema de alerta?</h3>
+        <div id="g-lugares" class="grafica"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>¿Qué tan importante es controlar el aire? (1 a 10)</h3>
+        <div id="g-importancia" class="grafica"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion cierre">
+  <div class="contenedor revelar">
+    <span class="etiqueta">La propuesta</span>
+    <h2>Una IA que aprende cómo respira un aula normal</h2>
+    <p class="lead">DECA-AI usa una red neuronal <b>autoencoder</b> que aprende el comportamiento normal del CO₂, la ocupación y la temperatura. Cuando algo no encaja, no logra reconstruirlo y emite una alerta antes de que el aire afecte a las personas.</p>
+    <div style="display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap;">
+      <a class="boton" href="monitor.html">Ver el monitor en vivo →</a>
+      <a class="boton secundario" href="participa.html">Reporta cómo está tu aire</a>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="pie">
+    <div>
+      <strong>DECA-AI</strong> · Detección de anomalías en calidad del aire mediante IA
+    </div>
+    <div class="pie-autores">
+      Mayra Vanessa Caipe Rojas · Andrés Camilo Galindo Rodríguez<br>
+      Inteligencia Artificial · Docente: Yudy Amparo Narváez Vallejo · Chía, Cundinamarca
+    </div>
+  </footer>
+
+  <script>window.DECA_ESTATICO = true;</script>
+  <script src="static/js/comun.js"></script>
+  
+<script src="static/js/historia.js"></script>
+
+</body>
+</html>
