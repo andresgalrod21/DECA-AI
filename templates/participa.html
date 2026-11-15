@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block titulo %}Participa{% endblock %}
+{% block contenido %}
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Integración ciudadana</span>
+  <h1>El aire es de todos</h1>
+  <p class="lead">La inteligencia artificial puede avisar, pero es la comunidad la que decide abrir una ventana, pedir ventilación o cambiar de espacio. Aquí cualquier persona puede reportar, de forma anónima, cómo se siente el aire donde está. Cada reporte se suma a la voz de la comunidad.</p>
+</section>
+
+<section class="contenedor" style="padding-bottom: 3rem;">
+  <div class="rejilla-2" style="align-items: start;">
+    <form class="tarjeta formulario" id="form-reporte" novalidate>
+      <h3>Reporta cómo está el aire</h3>
+      <p class="nota">No pedimos nombre, correo ni ubicación exacta. Solo el tipo de lugar y cómo te sientes.</p>
+      <p class="nota solo-estatico aviso-estado" hidden style="padding: .7rem .9rem;">Estás en la versión publicada de demostración: tus reportes se guardan solo en este navegador. En la app Flask se guardan en el servidor y los ve toda la comunidad.</p>
+
+      <fieldset>
+        <legend>1. ¿Dónde estás?</legend>
+        <div class="opciones">
+          {% for o in opciones.lugar %}<label class="opcion"><input type="radio" name="lugar" value="{{ o }}" required><span>{{ o }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. ¿Cómo se siente el aire?</legend>
+        <div class="opciones escala">
+          {% for o in opciones.sensacion %}<label class="opcion nivel-{{ loop.index }}"><input type="radio" name="sensacion" value="{{ o }}" required><span>{{ o }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. ¿Sientes algo de esto? <span class="nota">(puedes marcar varias)</span></legend>
+        <div class="opciones">
+          {% for o in opciones.sintomas %}<label class="opcion"><input type="checkbox" name="sintomas" value="{{ o }}"><span>{{ o }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. ¿Se pudo ventilar?</legend>
+        <div class="opciones">
+          {% for o in opciones.ventilar %}<label class="opcion"><input type="radio" name="ventilar" value="{{ o }}" required><span>{{ o }}</span></label>{% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>5. ¿Algo más que quieras contar? <span class="nota">(opcional)</span></legend>
+        <textarea name="comentario" maxlength="280" rows="3" placeholder="Ej.: en la tarde el salón queda muy cargado y no hay ventanas que abrir."></textarea>
+      </fieldset>
+
+      <p class="error-form" id="error-form" hidden>Responde las preguntas 1, 2 y 4 para enviar tu reporte.</p>
+      <button class="boton" type="submit">Enviar reporte</button>
+    </form>
+
+    <div style="display: grid; gap: 1.2rem;">
+      <div class="tarjeta respuesta" id="respuesta" hidden>
+        <span class="etiqueta">Gracias por participar</span>
+        <h3 id="resp-titulo"></h3>
+        <ul id="resp-pasos"></ul>
+        <button class="boton secundario" id="resp-compartir" type="button">Copiar aviso para el grupo</button>
+        <p class="nota" id="resp-copiado" hidden>Aviso copiado. Pégalo en el chat de tu curso o de tu oficina.</p>
+      </div>
+      <div class="tarjeta">
+        <h3>¿Qué pasa con tu reporte?</h3>
+        <div class="pasos-v">
+          <div><b>Se suma a la comunidad.</b> Aparece en los resultados agregados de esta página, junto con los de la encuesta.</div>
+          <div><b>Se convierte en evidencia.</b> Muchos reportes de un mismo tipo de lugar sirven para pedirle al encargado del espacio que mejore la ventilación.</div>
+          <div><b>Complementa al sensor.</b> El autoencoder mide el CO₂; las personas cuentan cómo se sienten. Juntos dan una imagen más completa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-cielo">
+  <div class="contenedor revelar">
+    <span class="etiqueta">La voz de la comunidad</span>
+    <h2>Lo que reportan las personas</h2>
+    <p class="lead">Comparamos lo que respondieron las {{ kpis.n }} personas de la encuesta con los reportes enviados desde esta página. Hasta ahora hay <b id="total-reportes">0</b> reportes en la app.</p>
+    <div class="rejilla-2" style="margin-top: 1.5rem;">
+      <div class="tarjeta"><h3>¿Cómo se siente el aire?</h3><div id="g-sensacion" class="grafica"></div></div>
+      <div class="tarjeta"><h3>Síntomas reportados</h3><div id="g-sintomas-com" class="grafica"></div></div>
+    </div>
+    <div class="rejilla-2" style="margin-top: 1.5rem;">
+      <div class="tarjeta"><h3>¿Desde qué lugares reportan?</h3><div id="g-lugar" class="grafica"></div></div>
+      <div class="tarjeta"><h3>Últimos comentarios</h3><div id="comentarios" class="comentarios"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor revelar">
+    <span class="etiqueta">Guía de acción</span>
+    <h2>Qué hacer cuando suena una alerta</h2>
+    <p class="lead">La IA no decide por nadie: avisa. Esta guía dice qué hacer en cada nivel y a quién involucrar.</p>
+    <div class="rejilla-4" style="margin-top: 1.5rem;">
+      {% for n in [
+        {"clase": "ok", "nombre": "Normal", "rango": "Menos de 1.000 ppm", "pasos": ["Sigue con tu actividad.", "Si el lugar se llena, abre una ventana preventivamente."], "aviso": ""},
+        {"clase": "adv", "nombre": "Advertencia", "rango": "1.000 a 1.500 ppm", "pasos": ["Abre ventanas o puertas 5 a 10 minutos.", "Avisa al docente o encargado.", "Si no se puede ventilar, propón una pausa fuera del salón."], "aviso": "⚠ Alerta DECA-AI: el CO₂ está elevado en este espacio. ¿Abrimos ventanas o puertas unos 5 minutos?"},
+        {"clase": "crit", "nombre": "Crítica", "rango": "Más de 1.500 ppm", "pasos": ["Ventila de inmediato o sal del lugar por unos minutos.", "Avisa al responsable del espacio.", "Reporta en esta página cómo te sientes."], "aviso": "🚨 Alerta crítica DECA-AI: el CO₂ está muy alto en este espacio. Salgamos unos minutos o ventilemos ya, y avisemos al encargado."},
+        {"clase": "sensor", "nombre": "Revisar sensor", "rango": "Lectura atípica", "pasos": ["No es un problema del aire: el sensor podría estar fallando.", "Avisa a mantenimiento o soporte técnico.", "Mientras tanto, guíate por cómo te sientes."], "aviso": "🔧 Aviso DECA-AI: el sensor de CO₂ de este espacio muestra lecturas atípicas. ¿Alguien puede avisar a mantenimiento?"}
+      ] %}
+      <div class="tarjeta nivel-tarjeta borde-{{ n.clase }}">
+        <div class="nivel-cabeza"><i class="punto-{{ n.clase }}"></i><h3>{{ n.nombre }}</h3></div>
+        <div class="nota">{{ n.rango }}</div>
+        <ul>{% for p in n.pasos %}<li>{{ p }}</li>{% endfor %}</ul>
+        {% if n.aviso %}<button class="boton secundario compartir" type="button" data-aviso="{{ n.aviso }}">Copiar aviso</button>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-rosa">
+  <div class="contenedor revelar">
+    <span class="etiqueta">Cada quien tiene un papel</span>
+    <h2>Una comunidad que cuida su aire</h2>
+    <div class="rejilla-4" style="margin-top: 1.5rem;">
+      <div class="tarjeta"><div class="rol-icono">🎒</div><h3>Estudiantes y usuarios</h3><p class="nota">Reciben las alertas, ventilan, reportan cómo se sienten y comparten el aviso con su grupo.</p></div>
+      <div class="tarjeta"><div class="rol-icono">👩‍🏫</div><h3>Docentes y encargados</h3><p class="nota">Deciden pausas o cambios de salón cuando la alerta es crítica y llevan los reportes a la administración.</p></div>
+      <div class="tarjeta"><div class="rol-icono">🏛️</div><h3>Administración</h3><p class="nota">Usa los datos agregados para priorizar ventilación, ajustar aforos y programar el mantenimiento de sensores.</p></div>
+      <div class="tarjeta"><div class="rol-icono">🤝</div><h3>Comunidad</h3><p class="nota">Participa en talleres, propone dónde instalar sensores y vigila que los datos se usen solo para cuidar la salud.</p></div>
+    </div>
+    <p style="margin-top: 1.5rem;"><a class="boton" href="{{ url_for('comunidad') }}">Ver la experiencia formativa y la reflexión ética →</a></p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/participa.js') }}"></script>
+{% endblock %}

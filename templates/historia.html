@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block titulo %}La historia{% endblock %}
+{% block contenido %}
+
+<section class="portada">
+  <div class="burbujas" aria-hidden="true">
+    {% for i in range(14) %}<span style="left: {{ (i * 7.3) % 100 }}%; width: {{ 10 + (i * 13) % 40 }}px; height: {{ 10 + (i * 13) % 40 }}px; animation-duration: {{ 9 + (i * 5) % 12 }}s; animation-delay: -{{ (i * 3) % 11 }}s;"></span>{% endfor %}
+  </div>
+  <div class="contenedor" style="position: relative;">
+    <span class="etiqueta">DECA-AI · Calidad del aire</span>
+    <h1>Respiras el aire que otros ya respiraron.</h1>
+    <p class="lead">En un lugar cerrado el CO₂ se acumula sin olor ni color. No lo vemos, pero lo sentimos: cansancio, sueño, dolor de cabeza. Esta es la historia de {{ kpis.n }} personas que nos contaron cómo lo viven y de una inteligencia artificial que aprende a darse cuenta antes que nosotros.</p>
+    <div class="portada-cifra">
+      <div><div class="numero" data-contar="{{ kpis.diario }}" data-sufijo="%">0%</div>pasa <b>todos los días</b> en aulas, oficinas, buses o salas de espera</div>
+      <div><div class="numero" data-contar="{{ kpis.asfixia }}" data-sufijo="%">0%</div>siente el aire <b>asfixiante</b> cuando no hay ventilación</div>
+      <div><div class="numero" data-contar="{{ kpis.importancia }}" data-decimales="1" data-sufijo="/10">0</div>de importancia le dan a <b>controlar el aire</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor capitulo revelar">
+    <div class="capitulo-texto">
+      <div class="capitulo-num">Capítulo 1</div>
+      <h2>Vivimos encerrados</h2>
+      <p class="lead">El {{ kpis.diario }}% de los encuestados está todos los días en lugares cerrados y concurridos. La mayoría son estudiantes: pasan horas en aulas donde el aire casi no se renueva.</p>
+      <p class="nota">Encuesta aplicada a {{ kpis.n }} personas, octubre de 2026.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>¿Con qué frecuencia estás en lugares cerrados y concurridos?</h3>
+      <div id="g-frecuencia" class="grafica"></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-rosa">
+  <div class="contenedor capitulo invertido revelar">
+    <div class="capitulo-texto">
+      <div class="capitulo-num">Capítulo 2</div>
+      <h2>Y el cuerpo lo nota</h2>
+      <div class="destacado" data-contar="{{ kpis.asfixia }}" data-sufijo="%">0%</div>
+      <p class="lead">siente el aire asfixiante en un lugar cerrado. Y el {{ kpis.atencion }}% ha notado que en esos lugares le cuesta más prestar atención o se cansa más de lo normal.</p>
+      <p class="nota">Pasa el cursor por las barras para ver cuántas personas marcaron cada síntoma (podían marcar varios).</p>
+    </div>
+    <div class="tarjeta">
+      <h3>Cuando el aire se siente pesado, ¿qué sientes?</h3>
+      <div id="g-sintomas" class="grafica"></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="contenedor revelar">
+    <div class="capitulo-num">Capítulo 3</div>
+    <h2>Pero casi nadie sabe por qué</h2>
+    <p class="lead">Solo el {{ kpis.asocia }}% había pensado que su malestar podía deberse al CO₂ acumulado. Y aunque muchos intentan abrir una ventana, el {{ kpis.no_ventila }}% simplemente no puede: no hay ventanas o no está permitido.</p>
+    <div class="rejilla-2" style="margin-top: 1.5rem;">
+      <div class="tarjeta">
+        <h3>¿Has pensado que tu malestar se debe al CO₂?</h3>
+        <div id="g-asocia" class="grafica"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>¿Abres ventanas cuando el ambiente está cargado?</h3>
+        <div id="g-ventilar" class="grafica"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-oscura">
+  <div class="contenedor revelar">
+    <div class="capitulo-num" style="color: var(--rosa);">Capítulo 4</div>
+    <h2>Lo que el aire no dice</h2>
+    <p class="lead">Así se ve un día en un aula de 35 personas. El CO₂ sube con cada clase y baja cuando el aula queda vacía. Cuando la ventilación falla, se dispara muy por encima de lo saludable y nadie se da cuenta hasta que llega el dolor de cabeza.</p>
+    <div class="tarjeta" style="color: var(--tinta);">
+      <div class="dia-control">
+        <label for="sel-dia"><b>Elige un día:</b></label>
+        <select id="sel-dia"></select>
+        <span class="nota" id="nota-dia"></span>
+      </div>
+      <div id="g-dia" class="grafica alta"></div>
+      <p class="nota">Datos simulados con el modelo de balance de masa de ventilación (ver «Los datos»). Las franjas de color marcan la calidad del aire: verde &lt; 800 ppm, amarilla 800–1.000, naranja 1.000–1.500 y roja &gt; 1.500.</p>
+    </div>
+    <div style="margin-top: 3rem;">
+      <h3 style="color: var(--rosa);">Lo que nos contaron</h3>
+      <div class="testimonios" id="testimonios">
+        {% for e in experiencias %}<div class="testimonio{{ ' activo' if loop.first }}">{{ e }}</div>{% endfor %}
+      </div>
+      <div class="puntos" id="puntos">
+        {% for e in experiencias %}<button aria-label="Testimonio {{ loop.index }}" class="{{ 'activo' if loop.first }}"></button>{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion franja-cielo">
+  <div class="contenedor revelar">
+    <div class="capitulo-num">Capítulo 5</div>
+    <h2>Lo que la gente pide</h2>
+    <div class="rejilla-4" style="margin: 1.5rem 0;">
+      <div class="tarjeta kpi"><div class="numero" data-contar="{{ kpis.utilidad }}" data-sufijo="%">0%</div><div class="texto">considera <b>útil</b> un sistema que alerte en tiempo real</div></div>
+      <div class="tarjeta kpi"><div class="numero" data-contar="{{ kpis.importancia }}" data-decimales="1">0</div><div class="texto">de 10 es la importancia de <b>controlar</b> el aire interior</div></div>
+      <div class="tarjeta kpi"><div class="numero" data-contar="{{ kpis.atencion }}" data-sufijo="%">0%</div><div class="texto">pierde <b>concentración</b> en lugares cerrados</div></div>
+      <div class="tarjeta kpi"><div class="numero" data-contar="{{ kpis.n }}">0</div><div class="texto">personas <b>encuestadas</b></div></div>
+    </div>
+    <div class="rejilla-2">
+      <div class="tarjeta">
+        <h3>¿Dónde haría más falta un sistema de alerta?</h3>
+        <div id="g-lugares" class="grafica"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>¿Qué tan importante es controlar el aire? (1 a 10)</h3>
+        <div id="g-importancia" class="grafica"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion cierre">
+  <div class="contenedor revelar">
+    <span class="etiqueta">La propuesta</span>
+    <h2>Una IA que aprende cómo respira un aula normal</h2>
+    <p class="lead">DECA-AI usa una red neuronal <b>autoencoder</b> que aprende el comportamiento normal del CO₂, la ocupación y la temperatura. Cuando algo no encaja, no logra reconstruirlo y emite una alerta antes de que el aire afecte a las personas.</p>
+    <div style="display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap;">
+      <a class="boton" href="{{ url_for('monitor') }}">Ver el monitor en vivo →</a>
+      <a class="boton secundario" href="{{ url_for('participa') }}">Reporta cómo está tu aire</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/historia.js') }}"></script>
+{% endblock %}

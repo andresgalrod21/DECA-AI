@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block titulo %}Problema y objetivos{% endblock %}
+{% block contenido %}
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Árbol de problemas · Árbol de objetivos</span>
+  <h1>Cada problema tiene su objetivo</h1>
+  <p class="lead">El árbol de objetivos es el reflejo del árbol de problemas: cada efecto se convierte en un fin y cada causa en un medio. Haz clic en cualquier caja para ver su pareja y el dato que la respalda.</p>
+</section>
+
+<section class="contenedor" style="padding-bottom: 4rem;">
+  <div class="arbol-tabs" role="tablist">
+    <button class="activo" data-vista="ambos">Ver ambos</button>
+    <button data-vista="solo-problemas">Árbol de problemas</button>
+    <button data-vista="solo-objetivos">Árbol de objetivos</button>
+  </div>
+
+  <div class="arboles" id="arboles">
+    {% for lado in ["problemas", "objetivos"] %}
+    <div class="arbol {{ lado }}">
+      <h3>{{ "Árbol de problemas" if lado == "problemas" else "Árbol de objetivos" }}</h3>
+      <div class="nivel-titulo">{{ "Efectos" if lado == "problemas" else "Fines" }}</div>
+      <div class="fila">
+        {% for n in arbol.efectos %}
+        <div class="nodo" data-par="{{ n.id }}" tabindex="0">
+          <strong>{{ n.problema if lado == "problemas" else n.objetivo }}</strong>
+          {{ n.p_texto if lado == "problemas" else n.o_texto }}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="tronco"></div>
+      <div class="fila">
+        <div class="nodo central" data-par="{{ arbol.central.id }}" tabindex="0">
+          <strong>{{ arbol.central.problema if lado == "problemas" else arbol.central.objetivo }}</strong>
+          {{ "Problema central" if lado == "problemas" else "Objetivo central" }}
+        </div>
+      </div>
+      <div class="tronco"></div>
+      <div class="nivel-titulo">{{ "Causas" if lado == "problemas" else "Medios" }}</div>
+      <div class="fila">
+        {% for n in arbol.causas %}
+        <div class="nodo" data-par="{{ n.id }}" tabindex="0">
+          <strong>{{ n.problema if lado == "problemas" else n.objetivo }}</strong>
+          {{ n.p_texto if lado == "problemas" else n.o_texto }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="detalle-par" id="detalle" hidden>
+    <div class="tarjeta" style="border-top: 6px solid var(--crit);">
+      <span class="etiqueta" style="background: var(--rosa-claro); color: var(--crit);" id="d-tipo-p">Problema</span>
+      <h4 id="d-problema"></h4>
+      <p id="d-ptexto" class="nota"></p>
+    </div>
+    <div class="flecha">→</div>
+    <div class="tarjeta" style="border-top: 6px solid var(--verde);">
+      <span class="etiqueta" id="d-tipo-o">Objetivo</span>
+      <h4 id="d-objetivo"></h4>
+      <p id="d-otexto" class="nota"></p>
+    </div>
+  </div>
+  <div class="evidencia" id="d-evidencia" hidden></div>
+</section>
+
+<script id="arbol-datos" type="application/json">{{ arbol | tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const datos = JSON.parse(document.getElementById("arbol-datos").textContent);
+  const nodos = {};
+  datos.efectos.forEach((n) => nodos[n.id] = Object.assign({ nivel: ["Efecto", "Fin"] }, n));
+  datos.causas.forEach((n) => nodos[n.id] = Object.assign({ nivel: ["Causa", "Medio"] }, n));
+  nodos[datos.central.id] = Object.assign({ nivel: ["Problema central", "Objetivo central"], p_texto: "", o_texto: "" }, datos.central);
+
+  const cont = document.getElementById("arboles");
+  const detalle = document.getElementById("detalle"), evid = document.getElementById("d-evidencia");
+  let activo = null;
+
+  function seleccionar(id) {
+    cont.querySelectorAll(".nodo").forEach((n) => n.classList.toggle("resaltado", n.dataset.par === id));
+    cont.classList.toggle("enfocado", !!id);
+    activo = id;
+    if (!id) { detalle.hidden = true; evid.hidden = true; return; }
+    const n = nodos[id];
+    document.getElementById("d-tipo-p").textContent = n.nivel[0];
+    document.getElementById("d-tipo-o").textContent = n.nivel[1];
+    document.getElementById("d-problema").textContent = n.problema;
+    document.getElementById("d-ptexto").textContent = n.p_texto;
+    document.getElementById("d-objetivo").textContent = n.objetivo;
+    document.getElementById("d-otexto").textContent = n.o_texto;
+    detalle.hidden = false;
+    evid.hidden = !n.evidencia;
+    evid.innerHTML = "<b>Lo que respalda esta pareja:</b> " + n.evidencia;
+  }
+
+  cont.querySelectorAll(".nodo").forEach((n) => {
+    const accion = () => seleccionar(activo === n.dataset.par ? null : n.dataset.par);
+    n.addEventListener("click", accion);
+    n.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); accion(); } });
+    n.addEventListener("mouseenter", () => { if (!activo) cont.querySelectorAll(`[data-par="${n.dataset.par}"]`).forEach((m) => m.classList.add("resaltado")); });
+    n.addEventListener("mouseleave", () => { if (!activo) cont.querySelectorAll(".nodo").forEach((m) => m.classList.remove("resaltado")); });
+  });
+
+  document.querySelectorAll(".arbol-tabs button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".arbol-tabs button").forEach((x) => x.classList.toggle("activo", x === b));
+    cont.classList.remove("solo-problemas", "solo-objetivos");
+    if (b.dataset.vista !== "ambos") cont.classList.add(b.dataset.vista);
+  }));
+
+  seleccionar("c1");
+})();
+</script>
+{% endblock %}

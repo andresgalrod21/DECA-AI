@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block titulo %}Los datos{% endblock %}
+{% block contenido %}
+<section class="contenedor encabezado-pagina">
+  <span class="etiqueta">Dataset sintético</span>
+  <h1>Los datos del aula</h1>
+  <p class="lead">No existe un dataset público de CO₂ interior con lecturas cada pocos minutos. El que se encontró era de aire exterior, con promedios anuales y sin CO₂. Por eso simulamos un sensor dentro de un aula usando el modelo físico de ventilación, e inyectamos anomalías conocidas para poder evaluar el modelo.</p>
+</section>
+
+<section class="contenedor" style="padding-bottom: 2rem;">
+  <div class="parametros revelar">
+    <div class="parametro"><div class="valor">60 días</div><div class="nombre">del 3 de agosto al 1 de octubre</div></div>
+    <div class="parametro"><div class="valor">5 min</div><div class="nombre">entre lecturas</div></div>
+    <div class="parametro"><div class="valor">17.280</div><div class="nombre">registros</div></div>
+    <div class="parametro"><div class="valor">150 m³</div><div class="nombre">volumen del aula</div></div>
+    <div class="parametro"><div class="valor">35</div><div class="nombre">personas de capacidad</div></div>
+  </div>
+
+  <div class="rejilla-2 revelar" style="margin-top: 1.5rem;">
+    <div class="tarjeta">
+      <h3>¿Cómo se genera el CO₂?</h3>
+      <div class="formula">dC/dt = N·G / V + (Q / V)·(C<sub>ext</sub> − C)</div>
+      <p class="nota"><b>C</b>: CO₂ interior · <b>N</b>: personas · <b>G</b>: CO₂ exhalado por persona (0,005 L/s) · <b>V</b>: volumen · <b>Q</b>: caudal de ventilación · <b>C<sub>ext</sub></b>: CO₂ exterior (420 ppm).</p>
+      <p>Las personas suben el CO₂ y la ventilación lo diluye hacia el nivel de afuera. La ecuación se resuelve minuto a minuto con un horario de clases real, y a cada lectura se le suma el ruido de un sensor (±12 ppm).</p>
+    </div>
+    <div class="tarjeta">
+      <h3>Anomalías inyectadas</h3>
+      <p class="nota">Se marcan con una etiqueta que <b>el modelo nunca ve al entrenar</b>; solo sirve para calificarlo al final.</p>
+      <div id="g-tipos" class="grafica" style="min-height: 280px;"></div>
+    </div>
+  </div>
+</section>
+
+<section class="contenedor revelar" style="padding: 1rem 0 2rem;">
+  <div class="tarjeta">
+    <h3>Los 60 días completos</h3>
+    <div class="dia-control">
+      <label for="sel-var"><b>Variable:</b></label>
+      <select id="sel-var">
+        <option value="co2">CO₂ (ppm)</option>
+        <option value="temperatura">Temperatura (°C)</option>
+        <option value="humedad">Humedad relativa (%)</option>
+        <option value="ocupacion">Ocupación (personas)</option>
+      </select>
+    </div>
+    <div class="filtros" id="filtros"></div>
+    <div id="g-serie" class="grafica alta"></div>
+    <p class="nota">Arrastra sobre la gráfica para hacer zoom o usa la barra inferior para moverte entre días. Doble clic para volver a la vista completa.</p>
+  </div>
+</section>
+
+<section class="contenedor" style="padding-bottom: 4rem;">
+  <div class="rejilla-2 revelar">
+    <div class="tarjeta">
+      <h3>El ciclo de un día normal</h3>
+      <div id="g-perfil" class="grafica"></div>
+      <p class="nota">Promedio de CO₂ por hora en registros normales. Sube con las clases, baja al almuerzo y vuelve a 420 ppm en la noche.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>Calidad del aire en el periodo</h3>
+      <div id="g-rangos" class="grafica"></div>
+    </div>
+  </div>
+  <div class="rejilla-2 revelar" style="margin-top: 1.5rem;">
+    <div class="tarjeta">
+      <h3>CO₂ según el tipo de registro</h3>
+      <div id="g-caja" class="grafica"></div>
+      <p class="nota">El sensor congelado tiene niveles normales: solo se nota por su forma en el tiempo.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>¿Qué variables se mueven juntas?</h3>
+      <div id="g-corr" class="grafica"></div>
+      <p class="nota">La humedad casi no se relaciona con el CO₂, por eso el modelo usa CO₂, ocupación y temperatura.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/datos.js') }}"></script>
+{% endblock %}
