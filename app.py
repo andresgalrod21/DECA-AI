@@ -12,8 +12,10 @@ y abrir http://127.0.0.1:5000
 """
 import json
 import os
+import threading
+from datetime import datetime
 
-from flask import Flask, abort, render_template, send_from_directory
+from flask import Flask, abort, jsonify, render_template, request, send_from_directory
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(RAIZ, "data")
@@ -124,6 +126,57 @@ def modelo():
 @app.route("/monitor")
 def monitor():
     return render_template("monitor.html", pagina="monitor")
+
+
+@app.route("/participa")
+def participa():
+    return render_template("participa.html", pagina="participa", opciones=OPCIONES_REPORTE)
+
+
+@app.route("/comunidad")
+def comunidad():
+    return render_template("comunidad.html", pagina="comunidad")
+
+
+# ---------- Reportes ciudadanos (anónimos) ----------
+REPORTES = os.path.join(DATA, "reportes.json")
+_candado = threading.Lock()
+OPCIONES_REPORTE = {
+    "lugar": ["Aula de clase", "Oficina", "Transporte público", "Sala de espera o consultorio", "Gimnasio", "Otro"],
+    "sensacion": ["Nada asfixiante", "Un poco asfixiante", "Bastante asfixiante", "Demasiado asfixiante"],
+    "sintomas": ["Fatiga o cansancio", "Sueño o somnolencia", "Dolor de cabeza",
+                 "Irritación en los ojos o garganta", "Dificultad para concentrarse", "Ninguna en especial"],
+    "ventilar": ["Sí, se abrieron ventanas o puertas", "No, nadie lo hizo", "No es posible (sin ventanas o prohibido)"],
+}
+
+
+def leer_reportes():
+    if not os.path.exists(REPORTES):
+        return []
+    with open(REPORTES, encoding="utf-8") as f:
+        return json.load(f)
+
+
+@app.route("/api/reportes", methods=["GET", "POST"])
+def reportes():
+    if request.method == "POST":
+        d = request.get_json(silent=True) or {}
+        o = OPCIONES_REPORTE
+        sintomas = [s for s in d.get("sintomas", []) if s in o["sintomas"]]
+        if d.get("lugar") not in o["lugar"] or d.get("sensacion") not in o["sensacion"] or d.get("ventilar") not in o["ventilar"]:
+            return jsonify({"error": "Respuesta incompleta"}), 400
+        nuevo = {
+            "fecha": datetime.now().isoformat(timespec="minutes"),
+            "lugar": d["lugar"], "sensacion": d["sensacion"], "sintomas": sintomas, "ventilar": d["ventilar"],
+            "comentario": str(d.get("comentario", "")).strip()[:280],
+        }
+        with _candado:
+            todos = leer_reportes()
+            todos.append(nuevo)
+            with open(REPORTES, "w", encoding="utf-8") as f:
+                json.dump(todos, f, ensure_ascii=False, indent=1)
+    todos = leer_reportes()
+    return jsonify({"total": len(todos), "reportes": todos[-200:]})
 
 
 @app.route("/api/<nombre>.json")

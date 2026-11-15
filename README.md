@@ -32,7 +32,11 @@ La app funciona sin internet (Plotly va incluido). Solo las fuentes tipográfica
 | `/arboles` | **Problema y objetivos**: árboles interactivos; cada problema se ilumina junto a su objetivo y el dato que lo respalda |
 | `/datos` | **Los datos**: cómo se generó el dataset, los 60 días completos con filtros y estadísticas |
 | `/modelo` | **El modelo**: arquitectura del autoencoder, los 5 experimentos y sus métricas |
+| `/participa` | **Participa**: integración ciudadana. Reportes anónimos de cómo se siente el aire, voz de la comunidad (encuesta + reportes), guía de acción por nivel de alerta y roles de la comunidad |
+| `/comunidad` | **Comunidad y ética**: diseño de la experiencia formativa (role playing y dinámicas de grupo), pertinencia social, principios éticos, limitaciones y licencia libre |
 | `/monitor` | **Monitor en vivo**: reproduce los 18 días de prueba lectura por lectura con alertas |
+
+Los reportes enviados desde «Participa» se guardan en `data/reportes.json` (se crea con el primer reporte). Para empezar de cero antes de una presentación, basta con borrar ese archivo.
 
 ## Estructura
 
@@ -63,6 +67,20 @@ pip install -r requirements-entrenamiento.txt
 python scripts/preparar_datos.py
 ```
 Los números pueden variar un poco entre entrenamientos.
+
+## Versión publicada (GitHub Pages)
+
+GitHub Pages no ejecuta Python, así que la carpeta `docs/` contiene una versión estática de la app, generada con:
+```
+python scripts/exportar_estatico.py
+```
+Es idéntica a la app Flask, salvo que en «Participa» los reportes se guardan solo en el navegador de cada visitante. Si cambias algo en la app, vuelve a ejecutar el script y sube la carpeta `docs/` actualizada.
+
+Para publicarla: en el repositorio, **Settings → Pages → Build and deployment**, elige **Deploy from a branch**, rama **main** y carpeta **/docs**.
+
+## Licencia
+
+Software libre bajo licencia MIT (ver `LICENSE`).
 
 ## Autores
 
